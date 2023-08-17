@@ -1,0 +1,120 @@
+{% load static %}
+{% include 'DRF_header.html' %}
+{% include 'DRF_slider.html' %}
+{% block main_content %}
+<div class="container">
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-primary float-right" data-bs-toggle="modal" data-bs-target="#exampleModal">
+    Add User
+</button>
+  
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Add Products</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <form class="row g-2" method="post" action="{% url 'create_user' %}">
+                {% csrf_token %}
+                <div class="col-md-6">
+                  <label for="name" class="form-label">Name</label>
+                  <input type="text" class="form-control" id="name">
+                </div>
+                <div class="col-md-6">
+                  <label for="father_name" class="form-label">Father Name</label>
+                  <input type="text" class="form-control" id="father_name">
+                </div>
+                <div class="col-6">
+                  <label for="city" class="form-label">City</label>
+                  <input type="text" class="form-control" id="city_name">
+                </div>
+                <div class="col-6">
+                  <label for="email" class="form-label">Email</label>
+                  <input type="email" class="form-control" id="email">
+                </div>
+                <div class="col-md-6">
+                  <label for="adress" class="form-label">Adress</label>
+                  <input type="text" class="form-control" id="adress">
+                </div>
+                <div class="col-md-12">
+                  <label for="image" class="form-label">Image</label>
+                  <input type="file" class="form-control" id="image">
+                </div>
+                <div class="col-md-6">
+                  <label for="phone" class="form-label">Phone</label>
+                  <input type="text" class="form-control" id="phone">
+                </div>
+                <div class="col-12">
+                  <button type="submit" class="btn btn-primary">Save</button>
+                </div>
+              </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Save changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+    <table class="table table-striped">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Name</th>
+            <th scope="col">Father Name</th>
+            <th scope="col">City</th>
+            <th scope="col">Email</th>
+            <th scope="col">Adress</th>
+            <th scope="col">Image</th>
+            <th scope="col">Phone</th>
+          </tr>
+        </thead>
+        <tbody>
+            <tr>
+                {% for form in data %}
+            <td scope="row">{{ form.id }}</td>
+            <td>{{ form.name }}</td>
+            <td>{{ form.father_name }}</td>
+            <td>{{ form.city_name }}</td>
+            <td>{{ form.email }}</td>
+            <td>{{ form.adress }}</td>
+            <td>{{ form.image }}</td>
+            <td>{{ form.phone }}</td>
+
+        </tr>
+        {% endfor %}
+        </tbody>
+      </table>
+    
+
+
+
+
+
+
+</div>
+
+
+{% endblock main_content %}
+{% include  'DRF_footer.html' %}
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Add Products</button>
+</form>  -->

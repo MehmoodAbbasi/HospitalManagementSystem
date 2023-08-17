@@ -1,0 +1,30 @@
+  {% load static %}
+{% include 'DRF_header.html' %}
+{% include 'DRF_slider.html' %}
+{% block main_content %}
+
+
+
+<!-- edit_user.html -->
+<form method="post" action="update_product">
+    {% csrf_token %}
+    <label for="name">Username:</label>
+    <input type="text" id="name" name="name" value="{{ user.name }}" required><br>
+    <label for="father_name">Value:</label>
+    <input type="text" id="username" name="value" value="{{ user.value }}" required><br>
+    <label for="date">Date:</label>
+    <input type="date" id="date" name="date" value="{{ user.date }}" required><br>
+
+    <!-- Other fields... -->
+    <button type="submit">Update</button>
+</form>
+
+
+
+
+
+
+
+    <!-- page-body-wrapper ends -->
+    {% endblock main_content %}
+  {% include  'DRF_footer.html' %}

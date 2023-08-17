@@ -1,0 +1,158 @@
+{% load static %}
+{% include 'DRF_header.html' %}
+{% include 'DRF_slider.html' %}
+{% block main_content %}
+<div class="container">
+  <!-- Button trigger modal -->
+  <button type="button" class="btn btn-primary float-right" data-bs-toggle="modal" data-bs-target="#exampleModal">
+    Add Students
+  </button>
+
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Add Students</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form class="row g-2" method="post" action="{% url 'add_students' %}">
+            {% csrf_token %}
+            <div class="col-md-6">
+              <label for="name" class="form-label">Name</label>
+              <input type="text" class="form-control" id="name" name="name">
+            </div>
+            <div class="col-md-6">
+              <label for="father_name" class="form-label">Father Name</label>
+              <input type="text" class="form-control" id="father_name" name="father_name">
+            </div>
+            <div class="col-6">
+              <label for="group" class="form-label">Group</label>
+              <input type="text" class="form-control" id="group" name="group">
+            </div>
+            <div class="col-6">
+              <label for="roll_no" class="form-label">Roll No</label>
+              <input type="text" class="form-control" name="roll_no" id="roll_no">
+            </div>
+            <div class="col-md-6">
+              <label for="subject_name" class="form-label">Subject Name</label>
+              <input type="text" class="form-control" id="subject_name" name="subject_name">
+            </div>
+            <div class="col-12">
+              <button type="submit" class="btn btn-primary">Save</button>
+            </div>
+
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button class="btn btn-primary" type="submit">Submit</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Name</th>
+        <th scope="col">Father Name</th>
+        <th scope="col">Group</th>
+        <th scope="col">roll No</th>
+        <th scope="col">Subject Name</th>
+        <th scope="col">Actions</th>
+
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        {% for data in data %}
+        <td scope="row">{{ data.id }}</td>
+        <td>{{ data.name }}</td>
+        <td>{{ data.father_name }}</td>
+        <td>{{ data.group }}</td>
+        <td>{{ data.roll_no }}</td>
+        <td>{{ data.subject_name }}</td>
+        <td>
+
+          <div class="d-flex align-items-center">
+            <button type="button" class="btn btn-success btn-sm btn-icon-text mr-3" data-bs-toggle="modal"
+              data-bs-target="#update_data">
+              Edit
+
+              <i class="typcn typcn-edit btn-icon-append"></i>
+
+            </button>
+            <!-- Modal -->
+            <div class="modal fade" id="update_data" tabindex="-1" aria-labelledby="exampleModalLabel"
+              aria-hidden="true">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Edit Information</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div class="modal-body">
+                    <form class="row g-2" method="post" action="{% url 'update_student' user.pk %}">
+                      {% csrf_token %}
+                      <div class="col-md-6">
+                        <label for="name" class="form-label">Name</label>
+                        <input type="text" class="form-control" id="name" value="{{ user.name }}" name="name">
+                      </div>
+                      <div class="col-md-6">
+                        <label for="father_name" class="form-label">Father Name</label>
+                        <input type="text" class="form-control" id="father_name" value="{{ user.father_name }}" name="father_name">
+                      </div>
+                      <div class="col-6">
+                        <label for="group" class="form-label">Group</label>
+                        <input type="text" class="form-control" id="group" value="{{ user.group }}" name="group">
+                      </div>
+                      <div class="col-6">
+                        <label for="roll_no" class="form-label">Roll No</label>
+                        <input type="text" class="form-control" name="roll_no" value="{{ user.roll_no }}" id="roll_no">
+                      </div>
+                      <div class="col-md-6">
+                        <label for="subject_name" class="form-label">Subject Name</label>
+                        <input type="text" class="form-control" id="subject_name" value="{{ user.subject_name }}" name="subject_name">
+                      </div>
+                      <div class="col-12">
+                        <button type="submit" class="btn btn-primary">Save</button>
+                      </div>
+
+                    </form>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button class="btn btn-primary" type="submit">Submit</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <button type="button" class="btn btn-danger btn-sm btn-icon-text mr-3" data-bs-toggle="modal"
+              data-bs-target="#delete_data">
+              Delete
+              <i class="typcn typcn-delete-outline btn-icon-append"></i>
+            </button>
+
+          </div>
+        </td>
+
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+
+
+
+
+
+
+</div>
+
+<!-- page-body-wrapper ends -->
+{% endblock main_content %}
+{% include 'DRF_footer.html' %}

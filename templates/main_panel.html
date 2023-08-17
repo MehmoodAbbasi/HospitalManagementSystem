@@ -1,0 +1,46 @@
+{% load static %}
+{% include 'header.html' %}
+{% include 'slider.html' %}
+{% block main_content %}
+
+<h1>
+    User Lists
+</h1>
+<div class="container col-md-8">
+
+    <table class="table">
+        <thead>
+            <tr>
+                
+                <th scope="col">#</th>
+                <th scope="col">Name</th>
+                <th scope="col">Email</th>
+                <th scope="col">TC</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for user in users %}
+            <tr>
+                <th scope="row">{{ user.id }}</th>
+                <td>{{ user.name }}</td>
+                <td>{{ user.email }}</td>
+                <td>{{ user.tc }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    
+    
+</div>
+
+
+
+
+
+
+{% endblock main_content %}
+{% include 'footer.html' %}
+
+
+
+

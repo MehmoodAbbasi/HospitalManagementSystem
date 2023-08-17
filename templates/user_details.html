@@ -1,0 +1,108 @@
+{% include 'DRF_header.html' %}
+{% include 'DRF_slider.html' %}
+
+{% block body %}
+
+
+<div class="col-lg-10 grid-margin stretch-card">
+    
+    <div class="card-body">
+       <!-- Button trigger modal -->
+<button type="button" class="btn btn-primary float-right" data-bs-toggle="modal" data-bs-target="#exampleModal">
+    Add User 
+  </button>
+  
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Add User</h1>
+          <button type="button" class="btn btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <div class="card">
+                <div class="card-body">
+                  <form class="forms-sample">
+                    <div class="form-group">
+                      <label for="exampleInputName1">Name</label>
+                      <input type="text" class="form-control" id="exampleInputName1" placeholder="Name">
+                    </div>
+                    <div class="form-group">
+                      <label for="exampleInputEmail3">Email address</label>
+                      <input type="email" class="form-control" id="exampleInputEmail3" placeholder="Email">
+                    </div>
+                    <div class="form-group">
+                      <label for="exampleInputPassword4">Password</label>
+                      <input type="password" class="form-control" id="exampleInputPassword4" placeholder="Password">
+                    </div>
+                    <div class="form-group">
+                      <label for="exampleSelectGender">Gender</label>
+                        <select class="form-control" id="exampleSelectGender">
+                          <option>Male</option>
+                          <option>Female</option>
+                        </select>
+                      </div>
+                    <div class="form-group">
+                      <label>File upload</label>
+                      <div class="input-group col-xs-12">
+                        <input type="file" name="" class="file-upload file-upload-info" placeholder="Upload Image">
+                        <span class="input-group-append">
+                          <button class="file-upload-browse btn btn-primary" type="button">Upload</button>
+                        </span>
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label for="exampleInputCity1">City</label>
+                      <input type="text" class="form-control" id="exampleInputCity1" placeholder="Location">
+                    </div>
+                    <button type="submit" class="btn btn-primary mr-2">Submit</button>
+                    <button class="btn btn-light">Cancel</button>
+                  </form>
+                </div>
+              </div>
+            
+
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Save changes</button>
+        </div>
+      </div>
+    </div>
+  </div> 
+       
+        <br>
+        <h4 class="card-title">User Details List</h4>
+        <div class="table-responsive">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Name</th>
+                        
+                        <th>Email</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for user in users %}
+                    <tr>
+                        <td scope="row">{{ user.id }}</td>
+                        <td>{{ user.name }}</td>
+                        <td>{{ user.email }}</td>
+                        <td><label class="badge badge-danger">{{ user.tc }}</label></td>
+                    </tr>
+                    {% endfor %}
+
+                          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+{% endblock body %}
+
+
+
+{% include 'DRF_footer.html' %}
