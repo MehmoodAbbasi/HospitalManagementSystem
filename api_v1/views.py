@@ -17,7 +17,7 @@ def index(request):
 
 class RegisterView(CreateAPIView):
     queryset = User.objects.all()
-    serializer = UserSerializer()
+    serializer = UserSerializer(queryset)
 
 
 class ProductCreateView(APIView):
