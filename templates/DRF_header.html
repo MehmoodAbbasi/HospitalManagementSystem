@@ -39,6 +39,7 @@
           </div>
         </div>
         <div class="navbar-menu-wrapper d-flex align-items-center justify-content-end">
+          {% if request.user.is_authenticated %}
           <ul class="navbar-nav mr-lg-2">
             <li class="nav-item nav-profile dropdown">
               <a class="nav-link" href="#" data-toggle="dropdown" id="profileDropdown">
@@ -61,7 +62,7 @@
             </li>
 
           </ul>
-
+    {% else %}
           <ul class="navbar-nav navbar-nav-right">
             <li class="nav-item nav-login dropdown">
 <a class="btn btn-primary" href="{% url 'login' %}" role="button">Login</a>
@@ -70,6 +71,7 @@
 <a class="btn btn-primary" href="{% url 'register' %}" role="button">Register</a>
             </li>
           </ul>
+            {% endif %}
           <ul class="navbar-nav navbar-nav-right">
 
             <li class="nav-item nav-date dropdown">
@@ -170,6 +172,9 @@
                   </div>
                 </a>
               </div>
+            </li>
+                        <li class="nav-item nav-login dropdown">
+<a class="btn btn-primary" href="{% url 'logout' %}" role="button">Logout</a>
             </li>
           </ul>
           <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button" data-toggle="offcanvas">

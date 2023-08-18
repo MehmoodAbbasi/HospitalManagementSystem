@@ -9,16 +9,51 @@ from api_v1.models import Product
 from rest_framework.views import APIView
 from rest_framework.generics import CreateAPIView
 from api_v1.forms import *
+from rest_framework.decorators import api_view
+from django.contrib.auth import authenticate , login ,logout
+from django.contrib.auth.decorators import login_required
+from rest_framework.authtoken.models import Token
 
 
+
+
+@login_required
 def index(request):
         return  render(request,'index.html')
 
+@api_view(['GET','POST'])
+def RegisterView(request):
+     if request.method == 'POST':
+         serializer = RegisterUserSerializer(data=request.data)
+         if serializer.is_valid():
+             data = serializer.save()
+             serializer = RegisterUserSerializer(data)
+             # return Response(serializer.data,status=status.HTTP_201_CREATED)
+             return render(request,'register.html',{'data':data,'serializer':serializer})
+         else:
+          return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
+     return render(request,'login.html')
 
-class RegisterView(CreateAPIView):
-    queryset = User.objects.all()
-    serializer = UserSerializer()
 
+@api_view(['GET','POST'])
+def LoginView(request):
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        user = authenticate(request,username=username,password=password)
+        if user is not None:
+            return render(request,'index.html')
+        else:
+            return render(request,'login.html')
+    return render(request,'login.html')
+
+def LogoutView(request):
+    if request.method=='POST':
+        user = request.user
+        Token.objects.filter(user=user).delete()
+        logout(request)
+        return redirect('index')
+    return render(request,'index.html')
 
 class ProductCreateView(APIView):
 

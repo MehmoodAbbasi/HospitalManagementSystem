@@ -1,6 +1,6 @@
 from django import forms
 from api_v1.models import *
-
+from django.contrib.auth.models import User
 class ProductForm(forms.ModelForm):
 
     class Meta:
@@ -17,5 +17,5 @@ class StudentForm(forms.ModelForm):
 class UserCreationForm(forms.ModelForm):
 
     class Meta:
-        model = Users
+        model = User
         fields= ('__all__')

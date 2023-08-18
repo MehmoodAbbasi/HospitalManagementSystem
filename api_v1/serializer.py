@@ -5,18 +5,12 @@ from django.contrib.auth import get_user_model
 
 User = get_user_model()
 
-class UserSerializer(serializers.ModelSerializer):
-    password2 = serializers.CharField(write_only=True)
-
+class RegisterUserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ['username','email','password','password2']
-
+        fields = ['username','email','password']
+        extra_kwargs ={'password':{'write_only':True}}
         def create(self,validated_data):
-            password = validated_data.pop('password')
-            password2 = validated_data.pop('password2')
-            if password !=password2:
-                raise serializers.ValidationError("Password does Not Match .")
             user = User(**validated_data)
             user.save()
             return user

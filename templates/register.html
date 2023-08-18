@@ -13,7 +13,8 @@
 </head>
 <body>
     <div class="container">
-        <form id="form" action="{% url 'register' %}">
+        <form id="form" action="{% url 'register' %}" method="post">
+            {% csrf_token %}
             <h1>Registration</h1>
             <div class="input-control">
                 <label for="username">Username</label>
@@ -28,11 +29,6 @@
             <div class="input-control">
                 <label for="password">Password</label>
                 <input id="password"name="password" type="password" required="required">
-                <div class="error"></div>
-            </div>
-            <div class="input-control">
-                <label for="password2">Password again</label>
-                <input id="password2"name="password2" type="password">
                 <div class="error"></div>
             </div>
             <button type="submit">Sign Up</button>
