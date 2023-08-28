@@ -29,7 +29,7 @@ def RegisterView(request):
              data = serializer.save()
              serializer = RegisterUserSerializer(data)
              # return Response(serializer.data,status=status.HTTP_201_CREATED)
-             return render(request,'register.html',{'data':data,'serializer':serializer})
+             return render(request,'login.html',{'data':data,'serializer':serializer})
          else:
           return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
      return render(request,'login.html')
@@ -38,22 +38,21 @@ def RegisterView(request):
 @api_view(['GET','POST'])
 def LoginView(request):
     if request.method == 'POST':
-        username = request.POST.get('username')
-        password = request.POST.get('password')
+        username = request.POST('username')
+        password = request.POST('password')
         user = authenticate(request,username=username,password=password)
         if user is not None:
+            login(request , user)
             return render(request,'index.html')
         else:
-            return render(request,'login.html')
-    return render(request,'login.html')
+            error_message = 'Invalid Credientials'
+    else:
+        error_message = ''
+    return render(request,'login.html',{'error_message':error_message})
 
 def LogoutView(request):
-    if request.method=='POST':
-        user = request.user
-        Token.objects.filter(user=user).delete()
-        logout(request)
-        return redirect('index')
-    return render(request,'index.html')
+    logout(request)
+    return redirect('index')
 
 class ProductCreateView(APIView):
 
@@ -89,7 +88,7 @@ class ProductUpdateView(APIView):
             return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
         
 
-        
+
 class StudenttCreateView(APIView):
 
         def post(self,request):
@@ -149,10 +148,6 @@ class UserCreateView(APIView):
                 data = Users.objects.all()
                 form = UserCreationForm
                 return render(request,'add_user.html',{'form':form,'data':data})
-
-
-def login(request):
-        return  render(request,'login.html')
 
 
 

@@ -55,6 +55,13 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'alliedapi.urls'
 
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.TokenAuthentication'
+    ]
+}
+
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
@@ -135,4 +142,4 @@ MEDIA_URL = '/media/'
 # Path where media is stored'
 MEDIA_ROOT = BASE_DIR / 'media'
 
-LOGIN_REDIRECT_URL = "index/"
+LOGIN_REDIRECT_URL = "/api/"
