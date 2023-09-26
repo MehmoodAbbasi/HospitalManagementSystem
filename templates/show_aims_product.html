@@ -1,0 +1,325 @@
+{% load static %}
+{% include 'DRF_header.html' %}
+{% include 'DRF_slider.html' %}
+{% block main_content %}
+
+
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">type</th>
+        <th scope="col">mh</th>
+        <th scope="col">product_id</th>
+        <th scope="col">branch_id</th>
+        <th scope="col">user_id</th>
+        <th scope="col">manufacture_id</th>
+        <th scope="col">manufacture_name</th>
+        <th scope="col">group_id</th>
+        <th scope="col">sub_category_id</th>
+        <th scope="col">group_name</th>
+        <th scope="col">code</th>
+        <th scope="col">bar_code</th>
+        <th scope="col">rack</th>
+        <th scope="col">name</th>
+        <th scope="col">name_urdu</th>
+        <th scope="col">pack</th>
+        <th scope="col">pack_qty</th>
+        <th scope="col">packing</th>
+        <th scope="col">tp</th>
+        <th scope="col">tp2</th>
+        <th scope="col">tp3</th>
+        <th scope="col">final_price</th>
+        <th scope="col">rp</th>
+        <th scope="col">gst_percent</th>
+        <th scope="col">gst_amount</th>
+        <th scope="col">un_reg_gst_percent</th>
+        <th scope="col">un_reg_gst_amount</th>
+        <th scope="col">tax_after_disc</th>
+        <th scope="col">weight_value</th>
+        <th scope="col">stock_limit</th>
+        <th scope="col">distibuter_discount</th>
+        <th scope="col">customer_discount</th>
+        <th scope="col">item_unit</th>
+        <th scope="col">detail</th>
+        <th scope="col">image</th>
+        <th scope="col">qty</th>
+        <th scope="col">qty_log</th>
+        <th scope="col">qty_on_bonus</th>
+        <th scope="col">bonus</th>
+        <th scope="col">status</th>
+        <th scope="col">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        {% for data in data %}
+        <td scope="row">{{ data.id }}</td>
+        <td>{{ data.type }}</td>
+        <td>{{ data.mh }}</td>
+        <td>{{ data.product_id }}</td>
+        <td>{{ data.branch_id }}</td>
+        <td>{{ data.user_id }}</td>
+        <td>{{ data.manufacture_id }}</td>
+        <td>{{ data.manufacture_name }}</td>
+        <td>{{ data.group_id }}</td>
+        <td>{{ data.sub_category_id }}</td>
+        <td>{{ data.group_name }}</td>
+        <td>{{ data.code }}</td>
+        <td>{{ data.bar_code }}</td>
+        <td>{{ data.rack }}</td>
+        <td>{{ data.name }}</td>
+        <td>{{ data.name_urdu }}</td>
+        <td>{{ data.pack }}</td>
+        <td>{{ data.pack_qty }}</td>
+        <td>{{ data.packing }}</td>
+        <td>{{ data.tp }}</td>
+        <td>{{ data.tp2 }}</td>
+        <td>{{ data.tp3 }}</td>
+        <td>{{ data.final_price }}</td>
+        <td>{{ data.rp }}</td>
+        <td>{{ data.nrv }}</td>
+        <td>{{ data.gst_percent }}</td>
+        <td>{{ data.gst_amount }}</td>
+        <td>{{ data.un_reg_gst_percent }}</td>
+        <td>{{ data.un_reg_gst_amount }}</td>
+        <td>{{ data.tax_after_disc }}</td>
+        <td>{{ data.weight_value }}</td>
+        <td>{{ data.stock_limit }}</td>
+        <td>{{ data.customer_discount }}</td>
+        <td>{{ data.item_unit }}</td>
+        <td>{{ data.detail }}</td>
+        <td>{{ data.image }}</td>
+        <td>{{ data.qty }}</td>
+        <td>{{ data.qty_log }}</td>
+        <td>{{ data.qty_on_bonus }}</td>
+        <td>{{ data.bonus }}</td>
+        <td>{{ data.status }}</td>
+        <td>
+          <div class="d-flex align-items-center">
+            <button type="button" class="btn btn-success btn-sm btn-icon-text mr-3" data-bs-toggle="modal"
+              data-bs-target="#update_data">
+              Edit
+
+              <i class="typcn typcn-edit btn-icon-append"></i>
+
+            </button>
+            <!-- Modal -->
+            <div class="modal fade" id="update_data" tabindex="-1" aria-labelledby="exampleModalLabel"
+              aria-hidden="true">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="update_data">Edit Information</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div class="modal-body">
+                    <form class="row g-2" method="post" action="{% url 'update_product' data.id  %}">
+                      {% csrf_token %}
+                      <div class="col-md-6">
+                        <label for="type" class="form-label">Type</label>
+                        <input type="text" class="form-control" id="type" value="{{ data.type }}" name="type">
+                      </div>
+                      <div class="col-md-6">
+                        <label for="mh" class="form-label">M H</label>
+                        <input type="text" class="form-control" id="mh" value="{{ data.mh }}" name="mh">
+                      </div>
+                      <div class="col-md-6">
+                        <label for="product_id" class="form-label">Product ID</label>
+                        <input type="text" class="form-control" id="product_id" value="{{ data.product_id }}" name="product_id">
+                      </div>
+                      <div class="col-md-6">
+                        <label for="branch_id" class="form-label">Branch ID</label>
+                        <input type="text" class="form-control" id="branch_id" value="{{ data.branch_id }}" name="branch_id">
+                      </div>
+                      <div class="col-md-6">
+                        <label for="user_id" class="form-label">User ID</label>
+                        <input type="text" class="form-control" id="user_id" value="{{ data.user_id }}" name="user_id">
+                      </div>
+                      <div class="col-md-6">
+                        <label for="manufacture_id" class="form-label">manufacture_id</label>
+                        <input type="text" class="form-control" id="manufacture_id" value="{{ data.manufacture_id }}" name="manufacture_id">
+                      </div>
+                      <div class="col-md-6">
+                        <label for="manufacture_name" class="form-label">manufacture_name</label>
+                        <input type="text" class="form-control" id="manufacture_name" value="{{ data.manufacture_name }}" name="manufacture_name">
+                      </div>
+                      <div class="col-md-6">
+                        <label for="group_id" class="form-label">group_id</label>
+                        <input type="text" class="form-control" id="group_id" value="{{ data.group_id }}" name="group_id">
+                      </div>
+                      <div class="col-md-6">
+                        <label for="sub_category_id" class="form-label">sub_category_id</label>
+                        <input type="text" class="form-control" id="sub_category_id" value="{{ data.sub_category_id }}" name="sub_category_id">
+                      </div>
+                      <div class="col-md-6">
+                        <label for="group_name" class="form-label">group_name</label>
+                        <input type="text" class="form-control" id="group_name" value="{{ data.group_name }}" name="group_name">
+                      </div>
+                      <div class="col-md-6">
+                        <label for="code" class="form-label">code</label>
+                        <input type="text" class="form-control" id="code" value="{{ data.code }}" name="code">
+                      </div>
+                      <div class="col-md-6">
+                        <label for="bar_code" class="form-label">bar_code</label>
+                        <input type="text" class="form-control" id="bar_code" value="{{ data.bar_code }}" name="bar_code">
+                      </div>
+                      <div class="col-md-6">
+                        <label for="rack" class="form-label">rack</label>
+                        <input type="text" class="form-control" id="rack" value="{{ data.rack }}" name="rack">
+                      </div>
+                      <div class="col-md-6">
+                        <label for="name" class="form-label">name</label>
+                        <input type="text" class="form-control" id="name" value="{{ data.name }}" name="name">
+                      </div>
+                      <div class="col-md-6">
+                        <label for="name_urdu" class="form-label">name_urdu</label>
+                        <input type="text" class="form-control" id="name_urdu" value="{{ data.name_urdu }}" name="name_urdu">
+                      </div>
+                      <div class="col-md-6">
+                        <label for="pack" class="form-label">pack</label>
+                        <input type="text" class="form-control" id="pack" value="{{ data.pack }}" name="pack">
+                      </div>
+                      <div class="col-md-6">
+                        <label for="pack_qty" class="form-label">pack_qty</label>
+                        <input type="text" class="form-control" id="pack_qty" value="{{ data.pack_qty }}" name="pack_qty">
+                      </div>
+                      <div class="col-md-6">
+                        <label for="packing" class="form-label">packing</label>
+                        <input type="text" class="form-control" id="packing" value="{{ data.packing }}" name="packing">
+                      </div>
+                      <div class="col-md-6">
+                        <label for="tp" class="form-label">tp</label>
+                        <input type="text" class="form-control" id="tp" value="{{ data.tp }}" name="tp">
+                      </div>
+                      <div class="col-md-6">
+                        <label for="tp2" class="form-label">tp2</label>
+                        <input type="text" class="form-control" id="tp2" value="{{ data.tp2 }}" name="tp2">
+                      </div>
+                      <div class="col-md-6">
+                        <label for="tp3" class="form-label">tp3</label>
+                        <input type="text" class="form-control" id="tp3" value="{{ data.tp3 }}" name="tp3">
+                      </div>
+                      <div class="col-md-6">
+                        <label for="final_price" class="form-label">final_price</label>
+                        <input type="text" class="form-control" id="final_price" value="{{ data.final_price }}" name="final_price">
+                      </div>
+                      <div class="col-md-6">
+                        <label for="rp" class="form-label">rp</label>
+                        <input type="text" class="form-control" id="rp" value="{{ data.rp }}" name="rp">
+                      </div>
+                      <div class="col-md-6">
+                        <label for="nrv" class="form-label">nrv</label>
+                        <input type="text" class="form-control" id="nrv" value="{{ data.nrv }}" name="nrv">
+                      </div>
+                      <div class="col-md-6">
+                        <label for="gst_percent" class="form-label">gst_percent</label>
+                        <input type="text" class="form-control" id="gst_percent" value="{{ data.gst_percent }}" name="gst_percent">
+                      </div>
+                      <div class="col-md-6">
+                        <label for="un_reg_gst_percent" class="form-label">un_reg_gst_percent</label>
+                        <input type="text" class="form-control" id="un_reg_gst_percent" value="{{ data.un_reg_gst_percent }}" name="un_reg_gst_percent">
+                      </div>
+                      <div class="col-md-6">
+                        <label for="un_reg_gst_amount" class="form-label">un_reg_gst_amount</label>
+                        <input type="text" class="form-control" id="un_reg_gst_amount" value="{{ data.un_reg_gst_amount }}" name="un_reg_gst_amount">
+                      </div>
+                      <div class="col-md-6">
+                        <label for="tax_after_disc" class="form-label">tax_after_disc</label>
+                        <input type="text" class="form-control" id="tax_after_disc" value="{{ data.tax_after_disc }}" name="tax_after_disc">
+                      </div>
+                      <div class="col-md-6">
+                        <label for="weight_value" class="form-label">weight_value</label>
+                        <input type="text" class="form-control" id="weight_value" value="{{ data.weight_value }}" name="gst_amount">
+                      </div>
+                      <div class="col-md-6">
+                        <label for="stock_limit" class="form-label">stock_limit</label>
+                        <input type="text" class="form-control" id="stock_limit" value="{{ data.stock_limit }}" name="stock_limit">
+                      </div>
+                      <div class="col-md-6">
+                        <label for="distibuter_discount" class="form-label">distibuter_discountdistibuter_discount</label>
+                        <input type="text" class="form-control" id="distibuter_discount" value="{{ data.distibuter_discount }}" name="distibuter_discount">
+                      </div>
+                      <div class="col-md-6">
+                        <label for="customer_discount" class="form-label">customer_discount</label>
+                        <input type="text" class="form-control" id="customer_discount" value="{{ data.customer_discount }}" name="customer_discount">
+                      </div>
+                      <div class="col-md-6">
+                        <label for="distibuter_discount" class="form-label">distibuter_discountdistibuter_discount</label>
+                        <input type="text" class="form-control" id="distibuter_discount" value="{{ data.distibuter_discount }}" name="distibuter_discount">
+                      </div>
+                      <div class="col-md-6">
+                        <label for="item_unit" class="form-label">item_unit</label>
+                        <input type="text" class="form-control" id="item_unit" value="{{ data.item_unit }}" name="item_unit">
+                      </div>
+                      <div class="col-md-6">
+                        <label for="detail" class="form-label">detail</label>
+                        <input type="text" class="form-control" id="detail" value="{{ data.detail }}" name="detail">
+                      </div>
+                      <div class="col-md-6">
+                        <label for="image" class="form-label">image</label>
+                        <input type="text" class="form-control" id="image" value="{{ data.image }}" name="image">
+                      </div>
+                      <div class="col-md-6">
+                        <label for="qty" class="form-label">qty</label>
+                        <input type="text" class="form-control" id="qty" value="{{ data.qty }}" name="qty">
+                      </div>
+                      <div class="col-md-6">
+                        <label for="qty_log" class="form-label">qty_log</label>
+                        <input type="text" class="form-control" id="qty_log" value="{{ data.qty_log }}" name="qty_log">
+                      </div>
+                      <div class="col-md-6">
+                        <label for="qty_on_bonus" class="form-label">qty_on_bonus</label>
+                        <input type="text" class="form-control" id="qty_on_bonus" value="{{ data.qty_on_bonus }}" name="qty_on_bonus">
+                      </div>
+                      <div class="col-md-6">
+                        <label for="bonus" class="form-label">bonus</label>
+                        <input type="text" class="form-control" id="bonus" value="{{ data.bonus }}" name="bonus">
+                      </div>
+                      <div class="col-md-6">
+                        <label for="status" class="form-label">status</label>
+                        <input type="text" class="form-control" id="status" value="{{ data.status }}" name="status">
+                      </div>
+
+                      <br>
+
+
+
+                      <div class="col-12">
+                        <button type="submit" class="btn btn-primary">Save</button>
+                      </div>
+
+                    </form>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button class="btn btn-primary" type="submit">Submit</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
+            <button type="button" class="btn btn-danger btn-sm btn-icon-text">
+              Delete
+              <i class="typcn typcn-delete-outline btn-icon-append"></i>
+            </button>
+          </div>
+        </td>
+
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+
+
+
+
+
+
+</div>
+
+
+{% endblock main_content %}
+{% include 'DRF_footer.html' %}
