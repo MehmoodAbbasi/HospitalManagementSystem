@@ -39,12 +39,31 @@ def logout(request):
         auth_logout(request)
         return  redirect('login')
 
-
 def add_doctor(request):
-        return  render(request,'add_doctor.html')
+    users = User.objects.all()
+
+    if request.method == 'POST':
+        form = DoctorForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()    
+            # Redirect or do something else upon successful form submission
+    else:
+        form = DoctorForm()
+
+    context = {
+        'form': form,
+        'users': users,
+        'gender_choices': Doctor.GENDER_CHOICES,
+    }
+
+    return render(request, 'add_doctor.html', context)
 
 def doctor_list(request):
-        return  render(request,'doctor_list.html')
+        doctor = Doctor.objects.all()
+        context = {
+              'doctor':doctor
+    }
+        return  render(request,'doctor_list.html', context)
 
 def add_staff(request):
         return  render(request,'add_staff.html')

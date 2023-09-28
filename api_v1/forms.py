@@ -20,3 +20,5 @@ class DoctorForm(forms.ModelForm):  # Change forms.Form to forms.ModelForm
     class Meta:
         model = Doctor
         fields = '__all__'
+
+

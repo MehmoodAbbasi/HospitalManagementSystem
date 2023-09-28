@@ -1,17 +1,19 @@
-{% load static %} {% include 'DRF_header.html' %} {% block main_content %}
+{% load static %}
+{% include 'DRF_header.html' %}
+{% block main_content %}
 <div class="container">
   <h1>Add Doctor</h1>
   <hr />
-  <form>
+  <form method="post" action="{% url 'add_doctor' %}" enctype="multipart/form-data">
+    {% csrf_token %}
     <div class="form-row">
       <div class="form-group col-md-6">
-        <label for="inputState">Username</label>
-        <select id="inputState" class="form-control">
-          <option selected>Choose Username</option>
-          <option>Amir</option>
-          <option>Mehmood</option>
-          <option>Junaid</option>
-          <option>Badar</option>
+        <label for="id_user">Username</label>
+        <select id="id_user" name="user" class="form-control" required>
+          <option value="" selected>Choose Username</option>
+          {% for user in users %}
+            <option value="{{ user.id }}">{{ user.username }}</option>
+          {% endfor %}
         </select>
       </div>
       <div class="form-group col-md-6">
@@ -20,28 +22,34 @@
           type="email"
           class="form-control"
           id="email"
+          name="email"
           placeholder="Enter Your email"
+          required
         />
       </div>
     </div>
 
     <div class="form-row">
       <div class="form-group col-md-6">
-        <label for="fname">First Name</label>
+        <label for="first_name">First Name</label>
         <input
           type="text"
           class="form-control"
-          id="fname"
+          id="first_name"
+          name="first_name"
           placeholder="First Name"
+          required
         />
       </div>
       <div class="form-group col-md-6">
-        <label for="inputPassword4">Last Name</label>
+        <label for="last_name">Last Name</label>
         <input
-          type="lname"
+          type="text"
           class="form-control"
-          id="lname"
+          id="last_name"
+          name="last_name"
           placeholder="Last Name"
+          required
         />
       </div>
     </div>
@@ -51,8 +59,10 @@
         <input
           type="text"
           class="form-control"
-          id="address"
+          id="adress"
+          name="adress"
           placeholder="Enter Address here"
+          required
         />
       </div>
 
@@ -62,53 +72,53 @@
           type="number"
           class="form-control"
           id="phone"
+          name="phone"
           placeholder="Enter Phone number"
+          required
         />
       </div>
       <div class="form-group col-md-4">
-        <label for="specilization">Specilization</label>
+        <label for="specialization">Specialization</label>
         <input
           type="text"
           class="form-control"
-          id="specilization"
-          placeholder="Enter Your Specilization"
+          id="specialization"
+          name="specialization"
+          placeholder="Enter Your Specialization"
+          required
         />
       </div>
     </div>
     <div class="form-row">
-     
-
       <div class="form-group col-md-4">
         <label for="dob">D.O.B</label>
-        <input type="date" class="form-control" id="dob" />
+        <input type="date" class="form-control" id="dob" name="dob" required/>
       </div>
 
       <div class="form-group col-md-4">
-        <label for="inputState">Gender</label>
-        <select id="inputState" class="form-control">
-          <option selected>Choose Gender</option>
-          <option>Male</option>
-          <option>Female</option>
-          <option>Other</option>
+        <label for="gender">Gender</label>
+        <select id="gender" name="gender" class="form-control" required>
+          <option value="" selected>Select Gender</option>
+          {% for choice in gender_choices %}
+            <option value="{{ choice.0 }}">{{ choice.1 }}</option>
+          {% endfor %}
         </select>
       </div>
       <div class="form-group col-md-4">
-        <label for="dob">Choose Image</label>
-        <input type="file" name="image" id="image">
+        <label for="profile_image">Choose Image</label>
+        <input type="file" class="form-control-file" id="profile_image" name="profile_image" required>
       </div>
     </div>
 
-      <div class="form-group col-md-6">
-        <label for="inputState">&nbsp;</label>
-        <button type="submit" class="btn btn-success">Submit</button>
-        <label for="inputState">&nbsp;</label>
-
-    <button type="button" class="btn btn-primary"><a style="text-decoration: none;color: white;" href="{% url "doctor_list" %}">View List</a></button>
-      </div>
-
-
-
-    
+    <div class="form-group col-md-6">
+      <label for="inputState">&nbsp;</label>
+      <button type="submit" class="btn btn-success">Submit</button>
+      <label for="inputState">&nbsp;</label>
+      <button type="button" class="btn btn-primary">
+        <a style="text-decoration: none; color: white;" href="{% url 'doctor_list' %}">View List</a>
+      </button>
+    </div>
   </form>
 </div>
-{% endblock main_content %} {% include 'DRF_footer.html' %}
+{% endblock main_content %}
+{% include 'DRF_footer.html' %}
