@@ -1,162 +1,83 @@
 from django.shortcuts import redirect , render
 from django.contrib.auth.models import User
+from django.contrib.auth import logout as auth_logout
 from django.shortcuts import get_object_or_404
-from . import serializer
-from .serializer import *
-from rest_framework import viewsets , status ,generics
-from rest_framework.response import Response
-from api_v1.models import Product
-from rest_framework.views import APIView
-from rest_framework.generics import CreateAPIView
+
+from api_v1.models import *
 from api_v1.forms import *
-from rest_framework.decorators import api_view
-from django.contrib.auth import authenticate , login ,logout
 from django.contrib.auth.decorators import login_required
-from rest_framework.authtoken.models import Token
 
 
 
 
-@login_required
 def index(request):
-        return  render(request,'index.html')
-
-@api_view(['GET','POST'])
-def RegisterView(request):
-     if request.method == 'POST':
-         serializer = RegisterUserSerializer(data=request.data)
-         if serializer.is_valid():
-             data = serializer.save()
-             serializer = RegisterUserSerializer(data)
-             # return Response(serializer.data,status=status.HTTP_201_CREATED)
-             return render(request,'login.html',{'data':data,'serializer':serializer})
-         else:
-          return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
-     return render(request,'login.html')
-
-
-@api_view(['GET','POST'])
-def LoginView(request):
-    if request.method == 'POST':
-        username = request.POST('username')
-        password = request.POST('password')
-        user = authenticate(request,username=username,password=password)
-        if user is not None:
-            login(request , user)
-            return render(request,'index.html')
-        else:
-            error_message = 'Invalid Credientials'
+    if request.user.is_authenticated:
+        return render(request,'index.html')
     else:
-        error_message = ''
-    return render(request,'login.html',{'error_message':error_message})
-
-def LogoutView(request):
-    logout(request)
-    return redirect('index')
-
-class ProductCreateView(APIView):
-
-        def post(self,request):
-                data = Product.objects.all()
-                form = ProductForm(request.data)
-                if form.is_valid():
-                        task = form.save()
-                        serializer = ProductSerializer(task)
-                        # return Response(serializer.data,status=status.HTTP_201_CREATED)
-                        return render(request, 'add_products.html', {'form': form, 'data': data,'serializer':serializer})
-                else:
-                        return Response(form.errors,status=status.HTTP_400_BAD_REQUEST)
-        def get(self,request):
-                data = Product.objects.all()
-                form = ProductForm()
-                return render(request,'add_products.html',{'form':form,'data':data})
+          
+        return redirect('login')
 
 
 
+def register(request):
+    if request.method == "POST":
+        form = CreateUserForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('login')  # Replace 'login' with the actual URL or view name
+    else:
+        form = CreateUserForm()
 
-class ProductUpdateView(APIView):
-        def get(self,request,pk):
-            data = Product.objects.get(pk=pk)
-            serializer = ProductSerializer(data)
-            return Response(serializer.data)
-        def post(self,request,pk):
-            data = Product.objects.get(pk=pk,)
-            serializer = ProductSerializer(data,data=request.data)
-            if serializer.is_valid():
-                 serializer.save()
-                 return Response(serializer.data)
-            return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
-        
+    context = {
+        'form': form,
+    }
+    return render(request, 'user_register.html', context)
+def login(request):
+        return  render(request,'login.html')
 
-
-class StudenttCreateView(APIView):
-
-        def post(self,request):
-                data = Student.objects.all()
-                form = StudentForm(request.data)
-                if form.is_valid():
-                        task = form.save()
-                        serializer = StudentSerializer(task)
-                        # return Response(serializer.data,status=status.HTTP_201_CREATED)
-                        return render(request, 'add_students.html', {'form': form, "data": data,'serializer':serializer})
-                else:
-                        # return Response(form.errors,status=status.HTTP_400_BAD_REQUEST)
-
-                        return render(request, 'add_students.html', {'form': form, "data": data})
-        def get(self,request):
-                data = Student.objects.all()
-                form = StudentForm()
-                return render(request,'add_students.html',{'form':form,"data":data})
+def logout(request):
+        auth_logout(request)
+        return  redirect('login')
 
 
-#Update the user Data
+def add_doctor(request):
+        return  render(request,'add_doctor.html')
+
+def doctor_list(request):
+        return  render(request,'doctor_list.html')
+
+def add_staff(request):
+        return  render(request,'add_staff.html')
+
+def staff_list(request):
+        return  render(request,'staff_list.html')
+
+def add_patient(request):
+        return  render(request,'add_patient.html')
+
+def patient_list(request):
+        return  render(request,'patient_list.html')
+
+def add_appointment(request):
+        return  render(request,'add_appointment.html')
 
 
-class StudentUpdateView(APIView):
-        def get(self, request, pk):
-                user = Student.objects.get(pk=pk)
-                serializer = StudentSerializer(user)
-                return Response(serializer.data)
+def appointment_list(request):
+        return  render(request,'appointment_list.html')
 
-        def post(self, request, pk):
-                user = Student.objects.get(pk=pk)
-                serializer = StudentSerializer(user, data=request.data)
+def billing(request):
+        return  render(request,'billings.html')
+def view_bill(request):
+        return  render(request,'view_bill.html')
 
-                if serializer.is_valid():
-                        serializer.save()
-                        return Response(serializer.data)
-                else:
-                        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+def add_medical_record(request):
+        return  render(request,'add_medical_record.html')
 
+def medical_records(request):
+        return  render(request,'medical_record_list.html')
 
+def add_inventory(request):
+        return  render(request,'add_inventory.html')
 
-
-
-
-
-
-class UserCreateView(APIView):
-        def post(self,request):
-                form = UserCreationForm(request.data)
-                if form.is_valid():
-                        task = form.save()
-                        serializer = UserSerializer(task)
-                        return Response(serializer.data,status=status.HTTP_201_CREATED)
-                else:
-                        return Response(form.errors,status=status.HTTP_400_BAD_REQUEST)
-        def get(self,request):
-                data = Users.objects.all()
-                form = UserCreationForm
-                return render(request,'add_user.html',{'form':form,'data':data})
-
-
-
-class UserViewSet(viewsets.ModelViewSet):
-
-        queryset = Users.objects.all()
-        serializer_class = serializer.UserSerializer
-
-class ProductViewSet(viewsets.ModelViewSet):
-
-        queryset = Product.objects.all()
-        serializer_class = serializer.ProductSerializer
+def inventory_list(request):
+        return  render(request,'inventory_list.html')

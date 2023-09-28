@@ -9,7 +9,7 @@ https://docs.djangoproject.com/en/4.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.1/ref/settings/
 """
-
+import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -40,6 +40,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'api_v1',
+    'crispy_forms',
+    'crispy_bootstrap4'
     
 ]
 
@@ -86,9 +88,13 @@ WSGI_APPLICATION = 'alliedapi.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'HospitalManagementSystem',
+        'HOST': 'localhost',
+        'PORT': '3306',
+        'USER': 'postgres',
+        'PASSWORD': 'admin',
+        }
 }
 
 # Password validation
@@ -131,6 +137,8 @@ STATICFILES_DIRS = [
     "static/",
 ]
 
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
@@ -142,4 +150,7 @@ MEDIA_URL = '/media/'
 # Path where media is stored'
 MEDIA_ROOT = BASE_DIR / 'media'
 
-LOGIN_REDIRECT_URL = "/api/"
+LOGIN_REDIRECT_URL = "index"
+
+MEDIA_ROOT =  os.path.join(BASE_DIR, 'image')
+MEDIA_URL = '/image/'

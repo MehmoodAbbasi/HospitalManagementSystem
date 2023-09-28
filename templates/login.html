@@ -1,88 +1,55 @@
+
 <!DOCTYPE html>
+<!-- Created By CodingNepal -->
 {% load static %}
-<!-- Created by CodingLab |www.youtube.com/c/CodingLabYT-->
+{% load crispy_forms_tags %}
 <html lang="en" dir="ltr">
-  <head>
-    <meta charset="UTF-8">
-    <!--<title> Login and Registration Form in HTML & CSS | CodingLab </title>-->
-    <link rel="stylesheet" href="{% static 'css/login/style.css' %}">
-    <!-- Fontawesome CDN Link -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <head>
+      <meta charset="utf-8">
+      <title>Transparent Login Form HTML CSS</title>
+      <link rel="stylesheet" href="{% static "css/register.css" %}" >
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
    </head>
-<body>
-  <div class="container">
-    <input type="checkbox" id="flip">
-    <div class="cover">
-      <div class="front">
-        <img src="{% static 'images/frontImg.jpg' %}" alt="">
-        <div class="text">
-          <span class="text-1">Every new friend is a <br> new adventure</span>
-          <span class="text-2">Let's get connected</span>
-        </div>
-      </div>
-      <div class="back">
-        <img class="backImg" src="{% static 'images/backImg.jpg' %}" alt="">
-        <div class="text">
-          <span class="text-1">Complete miles of journey <br> with one step</span>
-          <span class="text-2">Let's get started</span>
-        </div>
-      </div>
-    </div>
-    <div class="forms">
-        <div class="form-content">
-          <div class="login-form">
-            <div class="title">Login</div>
-          
-            <form id="form" action="{% url 'login' %}" method="post">
-                {% csrf_token %}
-            <div class="input-boxes">
-              <div class="input-box">
-                
-                <i class="fas fa-envelope"></i>
-                <input type="text" id="username" name="username" placeholder="Enter your Name" required>
-              </div>
-              <div class="input-box">
-                <i class="fas fa-lock"></i>
-                <input type="password" id="password" name="password" placeholder="Enter your password" required>
-              </div>
-              <div class="text"><a href="#">Forgot password?</a></div>
-              <div class="button input-box">
-                <input type="submit" value="Sumbit">
-              </div>
-              <div class="text sign-up-text">Don't have an account? <label for="flip">Sigup now</label></div>
+   <body>
+      <div class="bg-img">
+         <div class="content">
+            <header>Login Form</header>
+            <form  method='post'>
+              {% csrf_token %}
+              {{ form|crispy }}
+     
+             <input class="btn btn-success" style="margin-left:40%" type="submit" value="Register">
+             <br>
+            </form>
+            <div class="login">
+               Or login with
             </div>
-        </form>
-      </div>
-        <div class="signup-form">
-          <div class="title">Signup</div>
-        <form id="form" action="{% url 'register' %}" method="post">
-           {% csrf_token %}
-            <div class="input-boxes">
-              <div class="input-box">
-                <i class="fas fa-user"></i>
-                <input type="text" id="username" name="username" placeholder="Enter your name" required>
-              </div>
-              <div class="input-box">
-                <i class="fas fa-user"></i>
-                <input type="text" name="email" id="email" placeholder="Enter your email" required>
-              </div>
-              <div class="input-box">
-                <i class="fas fa-lock"></i>
-                <input type="password" id="password" name="password" placeholder="Enter your password" required>
-              </div>
-              <div class="button input-box">
-                <input type="submit" value="Sumbit">
-              </div>
-              <div class="text sign-up-text">Already have an account? <label for="flip">Login now</label></div>
+            <div class="links">
+               <div class="facebook">
+                  <i class="fab fa-facebook-f"><span>Facebook</span></i>
+               </div>
+               <div class="instagram">
+                  <i class="fab fa-instagram"><span>Instagram</span></i>
+               </div>
             </div>
-      </form>
-          <p>
-            {{ error_message }}
-          </p>
-    </div>
-    </div>
-    </div>
-  </div>
-</body>
+            <div class="signup">
+               Don't have account?
+               <a href="{% url "user_register" %}">Signup Now</a>
+            </div>
+         </div>
+      </div>
+     
+   </body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+

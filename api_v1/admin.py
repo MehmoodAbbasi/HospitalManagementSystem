@@ -3,17 +3,35 @@ from api_v1.models import *
 # Register your models here.
 
 
-class UserAccountModel(admin.ModelAdmin):
-    list_display=('id','name','father_name','city_name','email','adress','image','phone')
+class DoctorAccountModel(admin.ModelAdmin):
+    list_display=('id','user','first_name','last_name','adress','phone','email','specialization','profile_image')
+admin.site.register(Doctor,DoctorAccountModel)
 
 
-admin.site.register(Users,UserAccountModel)
-class ProductAccountModel(admin.ModelAdmin):
-    list_display = ('id','name','value','date')
+class PatientAccountModel(admin.ModelAdmin):
+    list_display=('id','first_name','last_name','adress','phone','email',
+'current_medication','profile_image')
+admin.site.register(Patient,PatientAccountModel)
 
-admin.site.register(Product,ProductAccountModel)
+class StaffAccountModel(admin.ModelAdmin):
+    list_display=('id','first_name','last_name','phone','email',
+'job_title','profile_image')
+admin.site.register(Staff,StaffAccountModel)
+
+class AppointmentAccountModel(admin.ModelAdmin):
+    list_display=('id','doctor','patient','appointment_date')
+admin.site.register(Appointment,AppointmentAccountModel)
+
+class MedicalRecordAccountModel(admin.ModelAdmin):
+    list_display=('id','doctor_name','patient_name','remarks')
+admin.site.register(MedicalReocrd,MedicalRecordAccountModel)
 
 
-class StudentModel(admin.ModelAdmin):
-    list_display = ('id','name','father_name','group','roll_no','subject_name')
-admin.site.register(Student,StudentModel)
+class inventryAccountModel(admin.ModelAdmin):
+    list_display=('id','item_name','quantity','unit_price')
+admin.site.register(Inventory,inventryAccountModel)
+
+class BillingAccountModel(admin.ModelAdmin):
+    list_display=('id','patient_name','item_name','total_amount','invoice_date')
+admin.site.register(Billing,BillingAccountModel)
+
