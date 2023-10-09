@@ -41,6 +41,9 @@ def logout(request):
 
 def add_doctor(request):
     users = User.objects.all()
+    doctor = Doctor.objects.all()
+
+
 
     if request.method == 'POST':
         form = DoctorForm(request.POST, request.FILES)
@@ -54,6 +57,7 @@ def add_doctor(request):
         'form': form,
         'users': users,
         'gender_choices': Doctor.GENDER_CHOICES,
+         'doctor':doctor,
     }
 
     return render(request, 'add_doctor.html', context)

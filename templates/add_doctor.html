@@ -2,123 +2,153 @@
 {% include 'DRF_header.html' %}
 {% block main_content %}
 <div class="container">
+  <!-- Button trigger modal -->
+  <button type="button" class="btn btn-primary float-sm-right mt-2" data-bs-toggle="modal" data-bs-target="#exampleModal">
+    Add Doctor
+  </button>
   <h1>Add Doctor</h1>
   <hr />
-  <form method="post" action="{% url 'add_doctor' %}" enctype="multipart/form-data">
-    {% csrf_token %}
-    <div class="form-row">
-      <div class="form-group col-md-6">
-        <label for="id_user">Username</label>
-        <select id="id_user" name="user" class="form-control" required>
-          <option value="" selected>Choose Username</option>
-          {% for user in users %}
-            <option value="{{ user.id }}">{{ user.username }}</option>
-          {% endfor %}
-        </select>
+  <div class="table-responsive pt-3">
+    <table class="table table-hover project-orders-table">
+      <thead class="thead-dark">
+
+        <tr>
+          <th class="ml-5">ID</th>
+          <th>Username</th>
+          <th>Email</th>
+          <th>Phone No</th>
+          <th>Specilization</th>
+          <th>Profile Picture</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for doctor in doctor %}
+        <tr>
+          <td>{{ doctor.id }}</td>
+          <td>{{ doctor.user.username }}</td>
+          <td>{{ doctor.email }} </td>
+          <td>{{ doctor.phone }}</td>
+          <td>{{ doctor.specialization }}</td>
+          <td>
+            <img src="{{ doctor.profile_image.url }}" alt="{{ doctor.user.username }}'s Profile Image" width="200%">
+          </td>
+          <td>
+            <div class="d-flex align-items-center">
+              <button type="button" class="btn btn-success btn-sm btn-icon-text mr-3">
+                Edit
+                <i class="typcn typcn-edit btn-icon-append"></i>                          
+              </button>
+              <button type="button" class="btn btn-danger btn-sm btn-icon-text">
+                Delete
+                <i class="typcn typcn-delete-outline btn-icon-append"></i>                          
+              </button>
+            </div>
+          </td>
+        </tr>
+        {% endfor %}
+     
+      </tbody>
+    </table>
+  </div>
+</div>
+<!-- View data -->
+
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
-      <div class="form-group col-md-6">
-        <label for="email">Email</label>
-        <input
-          type="email"
-          class="form-control"
-          id="email"
-          name="email"
-          placeholder="Enter Your email"
-          required
-        />
+      <div class="modal-body">
+        <form method="post" action="{% url 'add_doctor' %}" enctype="multipart/form-data">
+          {% csrf_token %}
+          <div class="form-row">
+            <div class="form-group col-md-6">
+              <label for="id_user">Username</label>
+              <select id="id_user" name="user" class="form-control" required>
+                <option value="" selected>Choose Username</option>
+                {% for user in users %}
+                <option value="{{ user.id }}">{{ user.username }}</option>
+                {% endfor %}
+              </select>
+            </div>
+            <div class="form-group col-md-6">
+              <label for="email">Email</label>
+              <input type="email" class="form-control" id="email" name="email" placeholder="Enter Your email"
+                required />
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group col-md-6">
+              <label for="first_name">First Name</label>
+              <input type="text" class="form-control" id="first_name" name="first_name" placeholder="First Name"
+                required />
+            </div>
+            <div class="form-group col-md-6">
+              <label for="last_name">Last Name</label>
+              <input type="text" class="form-control" id="last_name" name="last_name" placeholder="Last Name"
+                required />
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group col-md-4">
+              <label for="address">Address</label>
+              <input type="text" class="form-control" id="adress" name="adress" placeholder="Enter Address here"
+                required />
+            </div>
+
+            <div class="form-group col-md-4">
+              <label for="phone">Phone</label>
+              <input type="number" class="form-control" id="phone" name="phone" placeholder="Enter Phone number"
+                required />
+            </div>
+            <div class="form-group col-md-4">
+              <label for="specialization">Specialization</label>
+              <input type="text" class="form-control" id="specialization" name="specialization"
+                placeholder="Enter Your Specialization" required />
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group col-md-4">
+              <label for="dob">D.O.B</label>
+              <input type="date" class="form-control" id="dob" name="dob" required />
+            </div>
+
+            <div class="form-group col-md-4">
+              <label for="gender">Gender</label>
+              <select id="gender" name="gender" class="form-control" required>
+                <option value="" selected>Select Gender</option>
+                {% for choice in gender_choices %}
+                <option value="{{ choice.0 }}">{{ choice.1 }}</option>
+                {% endfor %}
+              </select>
+            </div>
+            <div class="form-group col-md-4">
+              <label for="profile_image">Choose Image</label>
+              <input type="file" class="form-control-file" id="profile_image" name="profile_image" required>
+            </div>
+          </div>
+
+          <div class="form-group col-md-6">
+            <label for="inputState">&nbsp;</label>
+            <button type="submit" class="btn btn-success">Submit</button>
+            <label for="inputState">&nbsp;</label>
+            <button type="button" class="btn btn-primary">
+              <a style="text-decoration: none; color: white;" href="{% url 'doctor_list' %}">View List</a>
+            </button>
+          </div>
+        </form>
       </div>
     </div>
 
-    <div class="form-row">
-      <div class="form-group col-md-6">
-        <label for="first_name">First Name</label>
-        <input
-          type="text"
-          class="form-control"
-          id="first_name"
-          name="first_name"
-          placeholder="First Name"
-          required
-        />
-      </div>
-      <div class="form-group col-md-6">
-        <label for="last_name">Last Name</label>
-        <input
-          type="text"
-          class="form-control"
-          id="last_name"
-          name="last_name"
-          placeholder="Last Name"
-          required
-        />
-      </div>
-    </div>
-    <div class="form-row">
-      <div class="form-group col-md-4">
-        <label for="address">Address</label>
-        <input
-          type="text"
-          class="form-control"
-          id="adress"
-          name="adress"
-          placeholder="Enter Address here"
-          required
-        />
-      </div>
-
-      <div class="form-group col-md-4">
-        <label for="phone">Phone</label>
-        <input
-          type="number"
-          class="form-control"
-          id="phone"
-          name="phone"
-          placeholder="Enter Phone number"
-          required
-        />
-      </div>
-      <div class="form-group col-md-4">
-        <label for="specialization">Specialization</label>
-        <input
-          type="text"
-          class="form-control"
-          id="specialization"
-          name="specialization"
-          placeholder="Enter Your Specialization"
-          required
-        />
-      </div>
-    </div>
-    <div class="form-row">
-      <div class="form-group col-md-4">
-        <label for="dob">D.O.B</label>
-        <input type="date" class="form-control" id="dob" name="dob" required/>
-      </div>
-
-      <div class="form-group col-md-4">
-        <label for="gender">Gender</label>
-        <select id="gender" name="gender" class="form-control" required>
-          <option value="" selected>Select Gender</option>
-          {% for choice in gender_choices %}
-            <option value="{{ choice.0 }}">{{ choice.1 }}</option>
-          {% endfor %}
-        </select>
-      </div>
-      <div class="form-group col-md-4">
-        <label for="profile_image">Choose Image</label>
-        <input type="file" class="form-control-file" id="profile_image" name="profile_image" required>
-      </div>
-    </div>
-
-    <div class="form-group col-md-6">
-      <label for="inputState">&nbsp;</label>
-      <button type="submit" class="btn btn-success">Submit</button>
-      <label for="inputState">&nbsp;</label>
-      <button type="button" class="btn btn-primary">
-        <a style="text-decoration: none; color: white;" href="{% url 'doctor_list' %}">View List</a>
-      </button>
-    </div>
-  </form>
+  </div>
 </div>
 {% endblock main_content %}
 {% include 'DRF_footer.html' %}
